@@ -41,7 +41,7 @@ def move_obstacle(model_name, start_position_x, end_position_x, start_position_y
     msg.model_name = model_name
     msg.pose.position.x = pose_x
     msg.pose.position.y = pose_y
-    msg.pose.position.z = 1.25
+    msg.pose.position.z = 0
 
     while not rospy.is_shutdown():
         if (inc_x > 0 and pose_x > end_x) or (inc_x < 0 and pose_x < start_x) or \
