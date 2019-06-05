@@ -25,35 +25,43 @@
 
   <include file="$(find ariac_environment)/launch/upload_actor.xml">
     <arg name="actor_name" default="actor1"/>
-    <arg name="start_x" default="11.0"/>
-    <arg name="start_y" default="10.0"/>
+    <arg name="start_x" default="15.0"/>
+    <arg name="start_y" default="5.0"/>
     <arg name="end_x" default="13.0"/>
     <arg name="end_y" default="7.0"/>
-    <arg name="inc" default="0.05"/>
+    <arg name="inc" default="0"/>
   </include>
 
   <include file="$(find ariac_environment)/launch/upload_actor.xml">
     <arg name="actor_name" default="actor2"/>
-    <arg name="start_x" default="7.0"/>
-    <arg name="start_y" default="13.0"/>
+    <arg name="start_x" default="20.0"/>
+    <arg name="start_y" default="5.0"/>
     <arg name="end_x" default="13.0"/>
-    <arg name="end_y" default="13.0"/>
-    <arg name="inc" default="0.1"/>
+    <arg name="end_y" default="7.0"/>
+    <arg name="inc" default="0"/>
   </include>
 
   <include file="$(find ariac_environment)/launch/upload_actor.xml">
     <arg name="actor_name" default="actor3"/>
-    <arg name="start_x" default="7.0"/>
-    <arg name="start_y" default="7.0"/>
-    <arg name="end_x" default="7.0"/>
-    <arg name="end_y" default="10.0"/>
-    <arg name="inc" default="0.08"/>
+    <arg name="start_x" default="12.0"/>
+    <arg name="start_y" default="12.0"/>
+    <arg name="end_x" default="13.0"/>
+    <arg name="end_y" default="7.0"/>
+    <arg name="inc" default="0"/>
   </include>
+
+  <include file="$(find obstacle_evasion)/launch/purepursuit.launch"/>
 
   <include file="$(find timed_roslaunch)/launch/timed_roslaunch.launch">
     <arg name="time" value="20"/>
     <arg name="pkg" value="ariac_environment"/>
     <arg name="file" value="detect_obstacles.launch"/>
+  </include>
+
+  <include file="$(find timed_roslaunch)/launch/timed_roslaunch.launch">
+    <arg name="time" value="20"/>
+    <arg name="pkg" value="obstacle_evasion"/>
+    <arg name="file" value="pub_test_path.launch"/>
   </include>
 
 </launch>

@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <launch>
+  <arg name="robot_name" default="pioneer"/>
 
   <!-- Merge front and back laser into topic "/scan" -->
   <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger">
-    <param name="destination_frame" value="/pioneer/base_link"/>
+    <param name="destination_frame" value="/$(arg robot_name)/base_link"/>
     <param name="cloud_destination_topic" value="/merged_cloud"/>
     <param name="scan_destination_topic" value="/scan"/>
-    <param name="laserscan_topics" value ="/pioneer/front_laser /pioneer/back_laser" />
+    <param name="laserscan_topics" value ="/$(arg robot_name)/front_laser /$(arg robot_name)/back_laser" />
   </node>
 
   <!-- Reconfigure min and max angle of result "/scan" topic -->
@@ -23,9 +24,9 @@
     <param name="discard_converted_segments" value="true"/>
     <param name="transform_coordinates"  value="true"/>
 
-    <param name="min_group_points"     value="2"/>
+    <param name="min_group_points"     value="20"/>
 
-    <param name="max_group_distance"   value="0.1"/>
+    <param name="max_group_distance"   value="0.5"/>
     <param name="distance_proportion"  value="0.00628"/>
     <param name="max_split_distance"   value="0.2"/>
     <param name="max_merge_separation" value="0.2"/>
@@ -33,13 +34,13 @@
     <param name="max_circle_radius"    value="1"/>
     <param name="radius_enlargement"   value="0.3"/>
 
-    <remap from="/scan" to="/pioneer/front_laser"/>
+    <remap from="/scan" to="/$(arg robot_name)/front_laser"/>
 
-    <param name="frame_id"             value="pioneer/map"/>
+    <param name="frame_id"             value="$(arg robot_name)/map"/>
   </node>
 
   <node name="obstacle_tracker" pkg="obstacle_detector" type="obstacle_tracker_node">
-    <param name="active"                  value="true"/>
+    <param name="active"                  value="false"/>
 
     <param name="loop_rate"               value="100.0"/>
     <param name="tracking_duration"       value="2.0"/>
@@ -49,7 +50,7 @@
     <param name="process_rate_variance"   value="0.1"/>  
     <param name="measurement_variance"    value="1.0"/> 
 
-    <param name="frame_id"                value="pioneer/map"/>
+    <param name="frame_id"                value="$(arg robot_name)/map"/>
 
     <remap from="tracked_obstacles" to="obstacles"/>  
   </node>
@@ -64,7 +65,7 @@
     <param name="loop_rate"        value="10.0"/>
     <param name="radius_margin"    value="0.25"/>
 
-    <param name="frame_id"         value="pioneer/map"/>
+    <param name="frame_id"         value="$(arg robot_name)/map"/>
   </node>
 
 </launch>

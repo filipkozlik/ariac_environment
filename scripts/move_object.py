@@ -4,9 +4,11 @@ import sys
 import rospy
 import numpy as np
 from gazebo_msgs.msg import ModelState
+from visualization_msgs.msg import Marker
 
 def move_obstacle(model_name, start_position_x, end_position_x, start_position_y, end_position_y, increment):
     pub = rospy.Publisher('/gazebo/set_model_state', ModelState, queue_size=10)
+    pub_rviz = rospy.Publisher('/visualization_marker', Marker, queue_size=10)
     rospy.init_node('move_node', anonymous=True)
     rate = rospy.Rate(10)
 
@@ -53,7 +55,31 @@ def move_obstacle(model_name, start_position_x, end_position_x, start_position_y
         msg.pose.position.x = pose_x
         msg.pose.position.y = pose_y
         pub.publish(msg)
+        publish_rviz(pub_rviz, [pose_x, pose_y], model_name)
         rate.sleep()
+
+def publish_rviz(pub, pose, model_name):
+    marker = Marker()
+    marker.header.frame_id = "pioneer/map"
+    marker.header.stamp = rospy.Time.now()
+    marker.ns = model_name
+    marker.action = marker.ADD
+    marker.type = marker.CYLINDER
+    marker.id = 0
+
+    marker.scale.x = 0.5
+    marker.scale.y = 0.5
+    marker.scale.z = 1
+
+    marker.color.a = 1.0
+    marker.color.g = 0.5 
+    marker.color.b = 0.5
+
+    marker.pose.position.x = pose[0]
+    marker.pose.position.y = pose[1]
+    marker.pose.position.z = 0
+    pub.publish(marker)
+
 
 if __name__ == '__main__':
     try:

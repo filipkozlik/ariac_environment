@@ -9,7 +9,7 @@
         <geometry>
           <cylinder> 
             <length>1</length> 
-            <radius>0.6</radius>
+            <radius>0.3</radius>
           </cylinder>
           <!--
           <mesh>
@@ -22,7 +22,7 @@
         <geometry>
           <cylinder> 
             <length>1</length> 
-            <radius>0.6</radius>
+            <radius>0.3</radius>
           </cylinder>
           <!--
           <mesh>
