@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /Grid1
         - /TF1/Frames1
-        - /Marker1
         - /Marker1/Namespaces1
       Splitter Ratio: 0.5
     Tree Height: 747
@@ -266,7 +265,23 @@ Visualization Manager:
       Marker Topic: visualization_marker
       Name: Marker
       Namespaces:
-        pioneer: true
+        actor1: true
+        actor2: true
+        actor3: true
+        actor4: true
+        actor5: true
+      Queue Size: 100
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /change_path
+      Name: Marker
+      Namespaces:
+        actor1: true
+        actor2: true
+        actor3: true
+        actor4: true
+        actor5: true
       Queue Size: 100
       Value: true
   Enabled: true
